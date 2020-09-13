@@ -250,6 +250,11 @@ footer {
     font-size: 20px;
 }
 
+.noCubesFound {
+    text-align: center;
+}
+
+
 /*Animations & Transitions
 */
 
