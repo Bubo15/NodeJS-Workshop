@@ -2,7 +2,7 @@
 // const fs = require('fs')
 // const path = require('path')
 const mongoose = require('mongoose');
-const { ObjectId } = require('mongodb');
+const { ObjectId, ObjectID } = require('mongodb');
 
 /* class Cube {
 
@@ -49,11 +49,15 @@ const CubeSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        match: [/^[A-Za-z0-9]+$/, 'Cube name is not Valid'],
+        minlength: 5
     },
     description: {
         type: String,
         required: true,
-        maxlength: 200
+        maxlength: 200,
+        match: [/^[A-Za-z0-9 ]+$/, 'Cube description is not Valid'],
+        minlength: 20
     },
     imageUrl: {
         type: String,
@@ -69,7 +73,12 @@ const CubeSchema = new mongoose.Schema({
     accessories: [{
         type: ObjectId,
         ref: 'Accessory'
-    }]
+    }],
+    creatorID: {
+        type: ObjectId,
+        ref: 'User'
+    }
+
 })
 
 CubeSchema.path('imageUrl').validate(function (url) {

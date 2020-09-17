@@ -37,10 +37,23 @@ const getCubeWithAccessoriesById = async (id) => {
     return await Cube.findById(id).populate('accessories').lean()
 }
 
+const deleteCubeById = async (id, callback) => {
+    await Cube.findOneAndDelete(id)
+    callback()
+}
+
+const editCube = async (req, cubeId) => {
+    const update = {name, desctiption, imageUrl, difficultyLevel} = req.body
+    update.difficulty = difficultyLevel
+    await Cube.findByIdAndUpdate(cubeId, update,  {new: true, runValidators: true})
+}
+
 module.exports = {
     getAllCubes,
     getCubeById,
     getCubesByNameAndDifficulty,
     updateCube,
-    getCubeWithAccessoriesById
+    getCubeWithAccessoriesById,
+    deleteCubeById,
+    editCube
 }
